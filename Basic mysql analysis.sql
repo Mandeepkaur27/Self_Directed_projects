@@ -33,6 +33,7 @@ select Id, Title, Director, Year, Length_minutes, Movie_id, Rating, Domestic_sal
 select * from employee; 
 
                                          --  Multi table queries --
+					 
 -- Q1. find the list of all buildings that have employees 
 select distinct Building from employee;
 
@@ -42,7 +43,8 @@ select * from building_capacity;
 -- Q3. List all the buildings and its distinct employee rolls in each buildings (incliding empty buildings). 
 select distinct Building_name, Role from Building_capacity left join employee on Building_name = Building;
                                
-                               -- Null Values -- 
+                                             -- Null Values -- 
+					     
 -- Q4. Find the name and roll of all employees who have not been assigned to a building. 
 select name, Role from employee_building where Building is null;
 
@@ -52,9 +54,10 @@ select name, Role from employee_building where Building is null;
 -- revised answer-- 
 select distinct Building_name from Building_capacity left join employee on building_name = Building where Role is null;
 
-											-- Expressions --
+						-- Expressions --
                                             -- Movies data & Movie_sales data -- 
                                             
+					    
 -- Q6. List all movies and their combined sales in millions of dollars. 
 select title, (Domestic_sales + International_sales) / 1000000 as Gross_sales_millions from movies inner join movie_sales on movies.id = movie_sales.Movie_id;
 
@@ -66,6 +69,8 @@ select title, year from movies where year%2 = 0 ;
 
                                           -- Aggregate function --
                                           -- Employees data ---- 
+					  
+					  
 -- Q9. Find the longest time that an employee has been in the studio. 
 select name, max(Years_employed) as max_year_employed from employee group by name order by max_year_employed desc limit 1 ;
 
@@ -77,6 +82,7 @@ select Building, sum(Years_employed)  as Total_year_employed from employee group
 
                                               -- Having clause -- 
                                               -- employee data -- 
+					      
                                               
 -- Q12. Find the number of artists in the studio (without having clause). 
 select role, count(*) as Number_of_artist from employee where role = "Artist";
@@ -97,6 +103,7 @@ select Director, count(Title), (Domestic_sales + International_sales) as ttl_Num
                                              
                                              -- Insert function -- 
 
+
 -- Q17. Add the studio's new production, Toy story 4 to the list of movies( you can use any director). 
 insert into movies( Id, Title, Director, Year, Length_minutes) values ("15", "Toy story 4", "Lee Unkrich", "2008", "123");
 SELECT * FROM project.movies;
@@ -111,6 +118,7 @@ SELECT * FROM project.movie_sales;
                                               -- Update --
                                               -- Movies data -- 
                                               
+					      
 -- Q19. The director for the bug's life is incorrect it was actually directed by john ross. 
 update movies set Director = "John ross" where title = "A Bug's Life"; 
 SELECT * FROM project.movies;
@@ -125,6 +133,7 @@ SELECT * FROM project.movies;
 
 
                                               -- Delete -- 
+					      
                                               
 -- Q22. This data is getting too big lets remove all the movies which were released before 2005.
 delete from movies where year < 2005; 
